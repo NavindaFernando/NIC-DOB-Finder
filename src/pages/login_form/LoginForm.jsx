@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
+import SignupForm from '../sign_up/SignupForm'; 
 
-function LoginForm() {
+function LoginForm({onLogin}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showSignup, setShowSignup] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,21 +16,35 @@ function LoginForm() {
     setIsLoading(true);
     setError('');
 
-    // Simulate API request
     try {
-      // Login logic here
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
 
-      // Simulate success
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (response.ok) {
+        console.log('Login successful');
+        window.alert('Sign-up successful!');
+        onLogin(); // Call the onLogin callback
+      } else {
+        setError('Invalid email or password');
+      }
+
       setIsLoading(false);
     } catch (err) {
+      setError('Login error');
       setIsLoading(false);
-      setError('Invalid email or password');
     }
   };
 
   return (
     <div className="login-form-container">
+      {showSignup ? (
+        <SignupForm toggleMode={() => setShowSignup(false)} />
+      ) : (
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Welcome back!</h2>
         <p className="login-description">
@@ -66,16 +82,23 @@ function LoginForm() {
           </div>
         </div>
         {error && <p className="error-message">{error}</p>}
+
         <button type="submit" className="button" disabled={isLoading}>
           {isLoading ? 'Logging in...' : 'Login'}
         </button>
+
+        {error && <p className="error-message">{error}</p>}
+
         <p className="signup-text">
-          Don't you have an account? <span className="signup-link">Sign Up</span>
-        </p>
+            Don't you have an account?{' '}
+            <span className="signup-link" onClick={() => setShowSignup(true)}>
+              Sign Up
+            </span>
+          </p>
       </form>
+      )}
     </div>
   );
 }
 
 export default LoginForm;
-

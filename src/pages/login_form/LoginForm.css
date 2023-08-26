@@ -7,7 +7,7 @@
   /* Apply global styles */
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: white; /* Change the background color */
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,7 +100,7 @@
     position: absolute;
     top: 100%;
     right: 0;
-    margin-top: 5px; /* Add some space */
+    margin-top: 5px;
   }
   
   .forgot-password a {
@@ -138,7 +138,16 @@
     color: #838D99;
     font-size: 12px;
   }
-  
+
+  .error-message {
+    position: absolute;
+    top: 353px;
+    left: 0;
+    right: 162px;
+    color: red;
+    text-align: center;
+  }
+
   /* Responsive adjustments */
   @media (max-width: 600px) {
     .login-form-container {

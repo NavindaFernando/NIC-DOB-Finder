@@ -13,6 +13,27 @@ function SignupForm({ toggleMode }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    try {
+      const response = await fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ fullName, email, password })
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log(data.message);
+        window.alert('Sign-up successful!');
+      } else {
+        setError('Error signing up. Please try again.');
+      }
+    } catch (err) {
+      setError('Error signing up. Please try again.');
+    }
+
     // Check if terms are accepted
     if (!termsAccepted) {
       setError('Please accept the terms & conditions.');
@@ -23,11 +44,7 @@ function SignupForm({ toggleMode }) {
     setIsLoading(true);
     setError('');
 
-    // Simulate signup logic and API request
     try {
-      // Signup logic here
-
-      // Simulate success
       await new Promise((resolve) => setTimeout(resolve, 1000));
       setIsLoading(false);
     } catch (err) {
@@ -100,21 +117,25 @@ function SignupForm({ toggleMode }) {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="termsAccepted">
+          <label htmlFor="termsAccepted" className="checkbox-label">
             <input
-              type="checkbox"
-              id="termsAccepted"
-              checked={termsAccepted}
-              onChange={() => setTermsAccepted(!termsAccepted)}
-              disabled={isLoading}
+            type="checkbox"
+            id="termsAccepted"
+            checked={termsAccepted}
+            onChange={() => setTermsAccepted(!termsAccepted)}
+            disabled={isLoading}
             />
+            <span className="checkmark"></span>
             I accept all terms & conditions
-          </label>
-        </div>
-        {error && <p className="error-message">{error}</p>}
-        <button type="submit" className="button" disabled={isLoading}>
+            </label>
+          </div>
+            
+          {error && <p className="signup-error-message">{error}</p>}
+
+        <button type="submit" className="signup-button" disabled={isLoading}>
           {isLoading ? 'Signing up...' : 'Sign Up'}
         </button>
+
         <p className="signup-text">
           Already have an account?{' '}
           <span className="signup-link" onClick={toggleMode}>
