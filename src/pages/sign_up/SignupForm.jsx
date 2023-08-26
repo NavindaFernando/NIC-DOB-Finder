@@ -28,10 +28,10 @@ function SignupForm({ toggleMode }) {
         console.log(data.message);
         window.alert('Sign-up successful!');
       } else {
-        setError('Error signing up. Please try again.');
+        window.alert('Error signing up. Please try again.');
       }
     } catch (err) {
-      setError('Error signing up. Please try again.');
+      window.alert('Error signing up. Please try again.');
     }
 
     // Check if terms are accepted
@@ -148,3 +148,4 @@ function SignupForm({ toggleMode }) {
 }
 
 export default SignupForm;
+
