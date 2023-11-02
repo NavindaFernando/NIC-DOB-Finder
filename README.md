@@ -2,7 +2,7 @@
 NIC-DOB-Finder :blowfish:
 </h3>
 
-![Screenshot (2124)](https://github.com/NavindaFernando/NIC-DOB-Finder/assets/86073690/6db8ebf4-0513-4c13-87d2-2fee89480c0b)
+![NIC_DOB](https://github.com/NavindaFernando/NIC-DOB-Finder/assets/86073690/2e1ec257-742b-4a52-8c6e-32917c0c7586)
 
 ***
 
